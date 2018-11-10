@@ -1,0 +1,114 @@
+﻿body {
+    width:820px;
+    height:1000px;
+    border:2px solid gray;
+    background-color:#ddd;
+    border-radius:50px;
+       
+}
+header{
+    width:200px;
+    height:1000px;
+    background-color:gray;
+    border-right:2px solid black;
+    float:left;
+}
+section{
+    width:560px;
+    height:200px;
+    float:left;
+}
+.filtro{
+    background-color:rgba(255,255,255,0.5); 
+    float:right;
+    margin:10px;
+    padding:10px;
+}
+.filtro2{
+    
+    float:right;
+    margin:25px;
+    padding:10px;
+}
+#contieneifltro{
+    float:left;
+}
+/*
+.butonlft{
+    float:left;
+    padding:10px;
+}*/
+#botones{
+    position: relative;
+}
+
+.butonftr{
+    display: inline-block;
+    padding:10px;
+    height: 17px;
+    width: 80px;
+   position:relative;
+}
+
+.butonftr3{
+    float:right;
+    padding:10px;
+    height: 17px;
+    width: 159px;
+}
+article{
+    float:left;
+    width:580px;
+    margin:15px;
+    min-height:250px;
+    background-color:rgba(0,0,0,0.05);
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ul li{
+    border-bottom:2px solid black;
+    font-size:1em;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding:10px;
+
+}
+.headerselected{
+    background-color:aquamarine;
+}
+#paneles{
+    float:left;
+    background-color:aquamarine;
+     
+}
+table, th, td{
+    border:1px solid black;
+    padding:2px;    
+    
+}
+table{
+    padding:5px;
+}
+h1{
+    text-align:center;
+
+}
+h2{
+    text-align:right;
+}
+#TextArea1{
+    margin:15px;
+}
+textarea{
+    padding:15px;
+}
+.botones{
+    margin-top: 2em;
+    background-color:rgba(255,255,255,0.5); 
+}
+#listauser{
+    overflow: scroll;
+    height:450px ;
+}
