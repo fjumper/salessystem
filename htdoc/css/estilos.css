@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: rgb(255, 255, 255);
+}
+
+.card-widht {
+    width: 15rem;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+footer.page-footer {
+    bottom: 0;
+    color: #fff;
+}
+
+.unique-color-dark {
+    background: rgb(28, 35, 49);
+}
+
+.info-color-dark {
+    background: rgb(0, 153, 204);
+}
+
+footer .footer-copyright {
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, .2);
+    color: rgba(255, 255, 255, 0.6);
+}

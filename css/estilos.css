@@ -1,0 +1,41 @@
+
+#contenedoor{
+    border: px dotted rgb(2, 1, 1);
+    width: 100%;
+   margin: auto;
+  padding: auto;
+    
+   }
+.container{
+    background: rgba(226, 248, 243, 0.671);
+    
+   }
+#h2{
+    color: gray;
+    font-size: 16px;
+    text-align: center;
+    font-family: cursive;
+}
+#h1{
+    color: rgba(6, 107, 102, 0.671);
+    font-size: 70px;
+    text-align: center;
+    font-family: cursive;
+}
+   #logo{
+    width: 140px;
+    height: 120px;
+    background: greenyellow;
+    background-size: 100% 100%;
+    float: left;
+    margin-right: 4%;
+    margin-bottom: 4%;
+    margin-left: 3%;
+    background-image: url('4.PNG')
+   }
+footer{
+    margin-top: 10%;
+    padding: 10%;
+    height: 30%;
+    text-align: center;
+   }
