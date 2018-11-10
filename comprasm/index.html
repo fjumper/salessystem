@@ -1,0 +1,164 @@
+﻿<?php 
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link href="css/css.css" rel="stylesheet" />
+    <script src="js/js.js"></script>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <div id="contenedor">
+        <header>
+            <div id="titulo">
+                <div id="logo" >
+                </div>
+                <div id="fondo1">
+                    <h1>COMPRAS</h1>
+                    <h2></h2>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">PEDIDOS</a>
+                    </li>
+                    <li>
+                        <a href="estado.html">ESTADO DE PEDIDOS</a>
+                    </li>
+                    <li>
+                        <a href="compras.html">COMPRAS</a>
+                    </li>
+                    <li>
+                        <a href="recomendaciones.html">ACERCA DE</a>
+                    </li>
+
+                </ul>
+            </nav>
+            <div style="clear:both;"></div>
+        </header>
+        
+        <section>
+            <h4>PEDIDOS</h4>
+            <div id="metodo5">
+                <p3>Buscar por:</p3>
+                <select>
+                    <option>Seleccionar</option>
+                    <option>Codigo</option>
+                    <option>Proveedor</option>
+                    <option>Producto</option>
+                    <option>Tienda</option>
+                </select>
+                <input type="text" id="texto" placeholder="">
+                <input type="button" id="btnbus" value="buscar" placeholder="">
+            </div>
+            <div id="banner">
+
+                <div id="contienebanner">
+                    <table id="tabla">
+                        <tr>
+                            <th style="width:30px;">Ident</th>
+                            <th>Proveedor</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Tienda</th>
+                            <th>FechPedido</th>
+                            <th>Opciones</th>
+                        </tr>
+                        <tr>
+                            <td>00025</td>
+                            <td>Gloria</td>
+                            <td>Leche</td>
+                            <td>2cjs</td>
+                            <td>T001</td>
+                            <td>21/09/18</td>
+                            <td>
+                                <a href="editar.html"><input type="button" value="Detalle" id="btne" onclick="msg()"></a>
+                                <input type="button" value="Aprobado" id="btnap" >
+                                <input type="button" value="X" id="btnx" onclick="msg()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>00024</td>
+                            <td>Gloria</td>
+                            <td>Leche</td>
+                            <td>6cjs</td>
+                            <td>T002</td>
+                            <td>10/09/18</td>
+                            <td>
+                                <input type="button" value="Detalle" id="btne" onclick="msg()">
+                                <input type="button" value="Aprobado" id="btnap" onclick="msg()">
+                                <input type="button" value="X" id="btnx" onclick="msg()">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>00023</td>
+                            <td>Soda</td>
+                            <td>Galleta</td>
+                            <td>5cjs</td>
+                            <td>T009</td>
+                            <td>02/10/17</td>
+                            <td>
+                                <input type="button" value="Detalle" id="btne" onclick="msg()">
+                                <input type="button" value="Aprobar" id="btnd" onclick="msg()">
+                                <input type="button" value="X" id="btnx" onclick="msg()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>00022</td>
+                            <td>Nestle</td>
+                            <td>Mermelada</td>
+                            <td>3cjs</td>
+                            <td>T004</td>
+                            <td>02/09/17</td>
+                            <td>
+                                <input type="button" value="Detalle" id="btne" onclick="msg()">
+                                <input type="button" value="Aprobar" id="btnd" onclick="msg()">
+                                <input type="button" value="X" id="btnx" onclick="msg()">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>00021</td>
+                            <td>Gloria</td>
+                            <td>Yogurt</td>
+                            <td>2cjs</td>
+                            <td>T001</td>
+                            <td>21/06/17</td>
+                            <td>
+                                <input type="button" value="Detalle" id="btne" onclick="msg()">
+                                <input type="button" value="Aprobar" id="btnd" onclick="msg()">
+                                <input type="button" value="X" id="btnx" onclick="msg()">
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <a href="consolidado.html"><input type="button" class="button" id="btnc" value="Consolidar"></a>
+        </section>
+        <section><p>INTERFACE 1</p>
+            <p>Requerimiento 1: Las compras las efectua el area
+        de compras</p><p>Requerimiento 3: Cada tienda genera automaticamente pedido de compras por productos en caso su nivel minimo de stock del producto se haya alcanzado</p>
+        <p>Requerimiento 4:Un personal del area de compras evalua y aprueba la compra, especificando las cantidades a entregar, puede ser al almacen central o una tienda especifica.
+        </p>
+        <p>Requerimiento 7: Buscar informacion de algun item determinado (productos, proveedores) por nombre</p>
+    </section>
+
+
+
+        <footer>
+            <h3>(c) UCCI</h3>
+        </footer>
+
+    </div>
+</body>
+</html>
