@@ -1,0 +1,57 @@
+*, *:before, *:after {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+ }
+ 
+ h2 {
+   width: 100%;
+   font-size: 40px;
+   text-align: center;
+   margin: 1em 0 1em 0;
+ }
+ 
+
+ body {
+   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+   background: #ededed;
+ }
+
+.cont {
+   overflow: hidden;
+   position: relative;
+   width: 80%;
+   height: 550px;
+   margin: 0 auto 100px;
+   background: #fff;
+ }
+
+ #cont-center{
+    height:  300px
+ }
+
+ img#img-empresa{
+    width: 400px;
+    height: 300px;
+    border-radius: 15px
+ }
+
+ #cont-center > div > button{
+    width: 250px;
+    margin: 0.3em 0 0 0;
+ }
+
+ #help{
+    margin: 30px 20px 0 0;
+ }
+
+ #info-icon{
+    font-size:18px
+ }
+
+#menu-btn >a {
+  display: block;
+  margin: 0 auto;
+  width: 260px;
+  cursor: pointer;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" href="css/index.css">
+   <link rel="shortcut icon" type="image/png" href="img/icon-login.png"/>
+   
+   <title>Inicio sesion</title>
+</head>
+<body>
+  
+      <br>
+      <div class="cont">
+        <div class="form sign-in">
+          <h2>Bienvenido</h2> <br> <br>
+          <label>
+            <span>Usuario</span>
+            <input id="usuario" type="text" />
+          </label>
+          <label>
+            <span>Contraseña</span>
+            <input id="password" type="password" />
+          </label>
+          <a href="" class="forgot-pass"><p class="forgot-pass">¿Olvidaste tu contraseña?</p></a> 
+          <button id="login" type="button" onclick="login()" class="submit">Ingrese</button>
+          <br>
+          <input id="caja" type="text" value="CAJA 1" />
+          
+        </div>
+        <div class="sub-cont">
+          <div class="img">
+            <div class="img__text m--up">
+              <h2>Tienda</h2>
+              <h2> NOMBRE</h2>
+              <h3>!Mejoramos¡</h3> <br>
+              <p>Para brindarte un mejor entorno de trabajo</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"></script>
+      <script src="js/index.js"></script>
+      <script src="js_ajax/sesion.js"></script>
+</body>
+</html>

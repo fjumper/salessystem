@@ -1,0 +1,62 @@
+*, *:before, *:after {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+ }
+ 
+ h2 {
+   width: 100%;
+   font-size: 40px;
+   text-align: center;
+   margin: 1em 0 1em 0;
+ }
+ 
+
+ body {
+   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+   background: #ededed;
+   font-size: 15px
+ }
+
+ .form-control{
+   font-size: 15px
+ }
+
+.cont {
+   overflow: hidden;
+   position: relative;
+   width: 80%;
+   height: 900px;
+   margin: 0 auto 100px;
+   background: #fff;
+ }
+
+ h3{
+    margin: 0.3em
+ }
+
+ fieldset{
+   border: 1px groove #ddd !important;
+   padding: 0 1.4em 1.4em 1.4em !important;
+   margin: 0 0 0 0 !important;
+   -webkit-box-shadow:  0px 0px 0px 0px #000;
+           box-shadow:  0px 0px 0px 0px #000;
+}
+
+ legend {
+   width:auto; /* Or auto */
+   padding:0 0 0 10px; /* To give a bit of padding on the left and right */
+   border-bottom:none;
+   font-size: 15px
+}
+
+#descr_venta{
+   height: 250px;
+   overflow-y: scroll;
+}
+
+.btn {
+   margin-bottom: 6px;
+   height: 40px;
+   width: 60px;
+}
