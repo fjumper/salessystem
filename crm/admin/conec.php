@@ -1,10 +1,10 @@
 <?php
 /*  CONECCIÓN CON LA BASE DE DATOS  */
 
-$host = 'localhost';
-$database = 'salvamedios';
-$username = 'root';
-$password = '';
+$host = 'db4free.net';
+$database = 'dbventa';
+$username = 'ahuanay';
+$password = 'ahuanay1995';
 $port = 3306;
 
 // Conectarse a MySQL

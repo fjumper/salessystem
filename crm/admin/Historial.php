@@ -1,5 +1,8 @@
 ﻿<?PHP
 require 'header.php';
+$link = mysqli_connect("192.168.0.19", "root", "1234");
+    mysqli_select_db($link, "dbventas");    
+    $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
 ?>
 
 <body>
@@ -16,9 +19,21 @@ require 'header.php';
     <section>
         <h1>Historial de Promociones</h1>
          <div class="filtro" > Por producto <br />
-            <select>
-                <option>Categoria</option>
-            </select>
+         <SELECT Name="histcategoria">
+                <option value="-1">Categoria</option>
+                <?php 
+
+                    $result = mysqli_query($link, "SELECT * FROM categorias");
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        mysqli_data_seek ($result, $i);
+                        $extraido= mysqli_fetch_array($result, MYSQLI_ASSOC);
+                        echo "<option value='".$extraido['IdCategoria']."'>";
+                        echo "".$extraido['Categoria']."</option>";
+                    }
+
+
+                ?>
+                </SELECT>
             <br />
             <br />
             <select>
@@ -28,20 +43,75 @@ require 'header.php';
         </div>
         
         <div class="butonftr">
-            <button type="reset"><img src="../img/Clear.png" alt="x" height="50px" width="50px" />Limpiar Lista</button></div>
+            <button type="submit"><img src="../img/Examinar.png" alt="x" height="50px" width="50px" />Buscar</button></div>
 
 
         <div><table style="width:100%">
-                <tr>
-                    <th class="auto-style1">ID Promocion</th>
-                    <th class="auto-style1">Fecha Inicio</th> 
-                    <th class="auto-style1">Fecha Final</th> 
-                    <th class="auto-style1">Stock Inicial</th>
-                    <th class="auto-style1">Stock Restante</th>
-                    <th class="auto-style1">Categoria</th>
-                    <th class="auto-style1">Producto Ofertado</th>
-                </tr>
+               
+        
+            <?php 
+            $varcateg=0;
+            if(isset($_GET['histcategoria'])){
+                        $varcateg=$_GET['histcategoria'];            
+                        ;}
+             if($varcateg>0){
+                $result = mysqli_query($link, 
+                "SELECT idpromocion, promociones.FechaHoraInicio, promociones.FechaHoraFin, 
+                promociones.StockTotal,promociones.StockFinal,productos.Producto, sub_categorias.SubCategoria,categorias.Categoria              FROM (promociones 
+                INNER JOIN productos_venta on promociones.FkProductoVenta=productos_venta.IdProductoVenta )
+                INNER JOIN productos on productos.IdProducto=productos_venta.FkProducto
+                inner JOIN sub_categorias on productos.FkSubCategoria=sub_categorias.IdSubCategoria
+                inner join categorias on sub_categorias.FkCategoria=categorias.IdCategoria where categorias.IdCategoria=$varcateg ");
+
+             }  else{
+                $result = mysqli_query($link, 
+                "SELECT idpromocion, promociones.FechaHoraInicio, promociones.FechaHoraFin, 
+                promociones.StockTotal,promociones.StockFinal,productos.Producto, sub_categorias.SubCategoria,categorias.Categoria              FROM (promociones 
+                INNER JOIN productos_venta on promociones.FkProductoVenta=productos_venta.IdProductoVenta )
+                INNER JOIN productos on productos.IdProducto=productos_venta.FkProducto
+                inner JOIN sub_categorias on productos.FkSubCategoria=sub_categorias.IdSubCategoria
+                inner join categorias on sub_categorias.FkCategoria=categorias.IdCategoria ");
+             }
                 
+                       
+                        
+                        
+                        echo "<table><tr><th> ID Promocion: </th>";
+                        echo "<th> Nombre  : </th>";
+                        echo "<th> Stock Inicial:</th> ";
+                        echo "<th> Stock Final:</th>";
+                        echo "<th> Categoria  : </th>";
+                        echo "<th> Subcategoria  : </th>";
+                        echo "<th> Fecha de Inicio: </th>";
+                        echo "<th> Fecha de Fin: </th>";
+                        
+                        
+
+                        $temptotal =0;
+                        
+                        for ($i = (int)0; $i < $result->num_rows; $i++) 
+                        {
+                            mysqli_data_seek ($result, $i);
+
+                            $extraido= mysqli_fetch_array($result, MYSQLI_ASSOC);
+                            
+                                
+                            echo "<tr><th> ".$extraido['idpromocion']."</th>";       
+                            echo "<th>".$extraido['Producto']."</th>";
+                            echo "<th>".$extraido['StockTotal']."</th>";
+                            echo "<th>".$extraido['StockFinal']."</th>"; 
+                            echo "<th>".$extraido['SubCategoria']."</th>";
+                            echo "<th>".$extraido['Categoria']."</th>";        
+                            echo "<th>".$extraido['FechaHoraInicio']."</th>";        
+                            echo "<th>".$extraido['FechaHoraFin']."</th><tr/>";
+                            
+                        }
+                                                
+                        
+                        
+                        ?>
+                                    
+  
             </table></div>
     </section>
     </div>

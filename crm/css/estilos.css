@@ -1,5 +1,5 @@
 ﻿body {
-    width:820px;
+    width:1000px;
     height:1000px;
     border:2px solid gray;
     background-color:#ddd;
@@ -14,8 +14,8 @@ header{
     float:left;
 }
 section{
-    width:560px;
-    height:200px;
+    width:700px;
+    height:360px;
     float:left;
 }
 .filtro{
@@ -58,7 +58,7 @@ section{
 }
 article{
     float:left;
-    width:580px;
+    width:780px;
     margin:15px;
     min-height:250px;
     background-color:rgba(0,0,0,0.05);

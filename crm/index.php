@@ -1,42 +1,25 @@
-﻿<?PHP
- $link = mysqli_connect("db4free.net", "ahuanay", "ahuanay1995");
-
- mysqli_select_db($link, "dbventas");
-
- $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
-
+﻿<?php
+    $link = mysqli_connect("192.168.0.19", "root", "1234");
+    mysqli_select_db($link, "dbventas");    
+    $tildes = $link->query("SET NAMES 'utf8'"); //Para que se muestren las tildes
+    
+    
 ?>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="css/estilos.css" rel="stylesheet" />
     <form action="conec.php" method="post"></form>
     <title></title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
     <style type="text/css">
         .auto-style1 {
             height: 27px;
         }
     </style>
 </head>
-<script>
- function foo () {
-      $.ajax({
-          
-        $linea = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
-        url:"test.php", //the page containing php script
-        type: "POST", //request type
-        data:   {
-                'myText':$linea,
-                }
-        success:function(result){
-         alert(result);
-       }
-     });
- }
-</script>
 <body>
     <form id="form1" runat="server">
     <div>
@@ -60,9 +43,9 @@
                 <?php 
 
                     $result = mysqli_query($link, "SELECT * FROM categorias");
-                    for ($i = 1; $i <= $result->num_rows; $i++) {
-                        mysqli_data_seek ($result, i);
-                        $extraido= mysqli_fetch_array($result);
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        mysqli_data_seek ($result, $i);
+                        $extraido= mysqli_fetch_array($result, MYSQLI_ASSOC);
                         echo "<option value='".$extraido['IdCategoria']."'>";
                         echo "".$extraido['Categoria']."</option>";
                     }
@@ -84,13 +67,13 @@
             <legend>Cliente</legend>
               
                <select name="ComboGenero">
-                   <option>Genero</option>
+                   <option value=0>Genero</option>
                    <?php 
 
                     $result = mysqli_query($link, "SELECT * FROM generos");
-                    for ($i = 1; $i <= $result->num_rows; $i++) {
-                        mysqli_data_seek ($result, i);
-                        $extraido= mysqli_fetch_array($result);
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        mysqli_data_seek ($result, $i);
+                        $extraido= mysqli_fetch_array($result, MYSQLI_ASSOC);
                         echo "<option value='".$extraido['IdGenero']."'>";
                         echo "".$extraido['Genero']."</option>";
                     }
@@ -106,9 +89,9 @@
                </select>
 
                  <select name="Combo5">
-                   <option>Rango de edad</option>
-                   <option>>17</option>
-                   <option>18</option>
+                   <option value="0">Rango de edad</option>
+                   <option value="1">>17</option>
+                   <option value="2">18</option>
                </select><br/>
 
                  <select name="Combo6">
@@ -147,9 +130,9 @@
                 <?php 
 
                     $result = mysqli_query($link, "SELECT * FROM departamentos");
-                    for ($i = 1; $i <= $result->num_rows; $i++) {
-                        mysqli_data_seek ($result, i);
-                        $extraido= mysqli_fetch_array($result);
+                    for ($i = 0; $i < $result->num_rows; $i++) {
+                        mysqli_data_seek ($result, $i);
+                        $extraido= mysqli_fetch_array($result, MYSQLI_ASSOC);
                         echo "<option value='".$extraido['IdDepartamentos']."'>";
                         echo "".$extraido['Departamento']."</option>";
                     }
@@ -169,27 +152,19 @@
 
 
     <div id="botones">
+
+        <input type="text" placeholder="Nombre de Lista"  name="txtnombrelista">
+        
+        <div class="butonftr">
+                <button name="subirlista"><img src="img/G3.png" alt="x" height="60px" width="60px"/> </button>
+        </div>
+         
         <div class="butonftr">
             <button type="submit"><img src="img/Examinar.png" alt="x" height="60px" width="60px" onclick="Buscar();"/></button>
-        </div>
-        <div class="butonftr">
-        <button type="button" onclick="savet()">Save Txt</button>
-        </div>
-            
-        <div class="butonftr">
-                <button ><img src="img/OPEN.png" alt="x" height="60px" width="60px"  /> </button>
-        </div>
-        <div class="butonftr">
-                <button><img src="img/Clear.png" alt="x" height="60px" width="60px" /> </button>
-        </div>
-
-        <div class="butonftr">
-                    <button><img src="img/submit.png" alt="x" height="60px" width="60px"  /> </button>
         </div>
     </div>
        
          
-        
             <article id="listauser"> <!--Se han encontrado <label id="resulta">xxxx</label> clientes con estas caracteristicas-->
                 <fieldset>
                  <legend>Cliente</legend>
@@ -197,44 +172,57 @@
                         <section id="tablaus">
                         <?php 
 
-                        $result = mysqli_query($link, "SELECT * FROM ((usuarios 
-                        inner JOIN clientes on  usuarios.IdUsuario=clientes.FkUsuario)
-                        INNER JOIN generos on clientes.FkGenero=generos.IdGenero);");
+
+                        $vargenero=0;
+                                if(isset($_GET['ComboGenero'])){
+                        $vargenero=$_GET['ComboGenero'];
+                        ;}
+
+                        if($vargenero==1){
+                            $result = mysqli_query($link, "SELECT * FROM ((usuarios 
+                            inner JOIN clientes on  usuarios.IdUsuario=clientes.FkUsuario)
+                            INNER JOIN generos on clientes.FkGenero=generos.IdGenero)
+                            WHERE clientes.FkGenero=1 ;") ;
+                        }elseif($vargenero==2){
+                            $result = mysqli_query($link, "SELECT * FROM ((usuarios 
+                            inner JOIN clientes on  usuarios.IdUsuario=clientes.FkUsuario)
+                            INNER JOIN generos on clientes.FkGenero=generos.IdGenero)
+                            WHERE clientes.FkGenero=2 ;");
+                        }else{
+                            $result = mysqli_query($link, "SELECT * FROM ((usuarios 
+                            inner JOIN clientes on  usuarios.IdUsuario=clientes.FkUsuario)
+                            INNER JOIN generos on clientes.FkGenero=generos.IdGenero);");   
+                        }
+                        
                         
                         echo "<table><tr><th> IDCliente: </th>";
                         echo "<th> Email: </th>";
                         echo "<th> Nombre:</th> ";
                         echo "<th> Genero:</th> </tr>";
-                        $vargenero=$_GET['ComboGenero'];
+                        
+
                         $temptotal =0;
-                        for ($i = 1; $i <= $result->num_rows; $i++) {
-                            mysqli_data_seek ($result, i);
-                            $extraido= mysqli_fetch_array($result);
-                             if($vargenero==1 ||$vargenero==2)
-                            {
-                                if ($extraido['IdGenero']==$_GET['ComboGenero'])
-                                {
-                                    echo "<tr><th> ".$extraido['IdCliente']."</th>";
+                        
+                        for ($i = (int)0; $i < $result->num_rows; $i++) 
+                        {
+                            mysqli_data_seek ($result, $i);
+
+                            $extraido= mysqli_fetch_array($result, MYSQLI_ASSOC);
+                            
+                                
+                            echo "<tr><th> ".$extraido['IdCliente']."</th>";
                                     
-                                    echo "<th>".$extraido['Email']."</th>";
+                            echo "<th>".$extraido['Email']."</th>";
                                     
-                                    echo "<th>".$extraido['Nombre']."</th>";
+                            echo "<th>".$extraido['Nombre']."</th>";
                                     
-                                    echo "<th>".$extraido['Genero']."</th><tr/>";
-                                    $temptotal++;
-                                }
-                            }else{
-                                echo "<tr><th> ".$extraido['IdCliente']."</th>";
-                                    
-                                    echo "<th>".$extraido['Email']."</th>";
-                                    
-                                    echo "<th>".$extraido['Nombre']."</th>";
-                                    
-                                    echo "<th>".$extraido['Genero']."</th><tr/>";
-                                    $temptotal++;
-                            }
+                            echo "<th>".$extraido['Genero']."</th><tr/>";
+                            
                         }
                         echo "Se han encontrado <label id='resulta'>".$temptotal."</label> clientes con estas caracteristicas";
+                        
+                        
+                        
                         ?>
                         </section>
                     <br />
