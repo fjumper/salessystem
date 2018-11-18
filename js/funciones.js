@@ -65,7 +65,7 @@ function inicio() {
 
         $.ajax({
             type: "POST",
-            url: "php/carrito/eliminarProdCar.php",
+            url: "../../php/ventasweb/carrito/eliminarProdCar.php",
             data: {
                 Id: Id
             },
@@ -87,7 +87,7 @@ function inicio() {
         var Precio = $(this).attr('data-precio');
         $.ajax({
             type: "POST",
-            url: "php/carrito/modificarDatCar.php",
+            url: "../../php/ventasweb/carrito/modificarDatCar.php",
             data: {
                 Id: Id,
                 Cantidad: Cantidad,
