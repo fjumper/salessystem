@@ -8,14 +8,15 @@
         $_SESSION['usuario'] = null;
     }
 
+    require '../../php/ventasweb/get.php';
+	$get = new get();
+
 ?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    <?php include '../../include/ventasweb/head.php'; ?>
+    <?php include '../../include/head.php'; ?>
     <title>Document</title>
 </head>
 
@@ -52,7 +53,7 @@
         </div>
     </section>
     <?php include '../../include/ventasweb/footer.php'; ?>
-    <?php include '../../include/ventasweb/script.php'; ?>
+    <?php include '../../include/script.php'; ?>
 </body>
 
 </html>
