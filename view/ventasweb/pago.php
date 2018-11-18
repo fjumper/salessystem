@@ -4,7 +4,7 @@
     if(isset($_SESSION['usuario'])) {
         
     } else {
-        header("Location: index.php?Debe Iniciar Sesion");
+        header("Location: login.php?Debe Iniciar Sesion");
     }
 
     require '../../php/ventasweb/get.php';

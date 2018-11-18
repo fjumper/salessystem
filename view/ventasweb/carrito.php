@@ -1,68 +1,4 @@
-<?php
-
-    session_start();
-
-    require '../../php/ventasweb/get.php';
-    $get = new get();
-    if(isset($_SESSION['carrito'])) {
-        if(isset($_POST['Id'])) {
-            $arreglo = $_SESSION['carrito'];
-            $encontrado = false;
-            $numero = 0;
-
-            for ($i=0; $i < count($arreglo); $i++) { 
-                if ($arreglo[$i]['Id'] == $_POST['Id']) {
-                    $encontrado = true;
-                    $numero = $i;
-                }
-            }
-
-            if ($encontrado == false) {
-                $resultn = $get->getProductosId($_POST['Id']);
-                while($row = $resultn->fetch_array()) {
-                    $Producto = $row['Producto'];
-                    $Imagen = $row['Imagen'];
-                    $PrecioVenta = $row['PrecioVenta'];
-                    $Peso = $row['Peso'] / 1000;
-                }
-                $resultn->free_result();
-                $datosNuevos = array(
-                    'Id' => $_POST['Id'],
-                    'Producto' => $Producto,
-                    'Imagen' => $Imagen,
-                    'PrecioVenta' => $PrecioVenta,
-                    'Peso' => $Peso,
-                    'Cantidad' => 1
-                );
-                array_push($arreglo, $datosNuevos);
-                $_SESSION['carrito'] = $arreglo;
-            }
-        }
-    } else {
-        if(isset($_POST['Id'])) {
-
-            $result = $get->getProductosId($_POST['Id']);
-            while($row = $result->fetch_array()) {
-                $Producto = $row['Producto'];
-                $Imagen = $row['Imagen'];
-                $PrecioVenta = $row['PrecioVenta'];
-                $Peso = $row['Peso'] / 1000;
-            }
-            $result->free_result();        
-            
-            $arreglo[] = array(
-                'Id' => $_POST['Id'],
-                'Producto' => $Producto,
-                'Imagen' => $Imagen,
-                'PrecioVenta' => $PrecioVenta,
-                'Peso' => $Peso,
-                'Cantidad' => 1
-            );
-            $_SESSION['carrito'] = $arreglo;
-        }
-    }
-
-?>
+<?php require '../../php/ventasweb/carrito/agregarCar.php'; ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -108,7 +44,7 @@
                                         <td><img src="<?php echo $datos[$i]['Imagen']; ?>" style="width: 3rem;"></td>
                                         <td><p><?php echo $datos[$i]['Producto']; ?></p></td>
                                         <td>
-                                            <input type="number" class="form-control col-md-6 m-auto Cantidad" data-precio="<?php echo $datos[$i]['PrecioVenta']; ?>" data-id="<?php echo $datos[$i]['Id']; ?>" value="<?php echo $datos[$i]['Cantidad']; ?>">
+                                            <input type="number" class="form-control col-md-6 m-auto Cantidad number" min="1" max="<?php echo $datos[$i]['Stock']; ?>" data-precio="<?php echo $datos[$i]['PrecioVenta']; ?>" data-id="<?php echo $datos[$i]['Id']; ?>" value="<?php echo $datos[$i]['Cantidad']; ?>">
                                         </td>
                                         <td><p><?php echo 'S/. ' . number_format($datos[$i]['PrecioVenta'],2); ?></p></td>
                                         <td><p><?php echo $datos[$i]['Peso']. ' Kg'; ?></p> <i class="fas fa-exclamation-circle"></i></td>
@@ -118,6 +54,9 @@
                                     </tr>
 
                                 <?php
+                                    if ($datos[$i]['Cantidad'] == null) {
+                                        $datos[$i]['Cantidad'] = 0;
+                                    }
                                     $Subtotal = $Subtotal + $datos[$i]['Cantidad']* $datos[$i]['PrecioVenta'];
                                     $Peso = $Peso + $datos[$i]['Peso'];
                             } ?>

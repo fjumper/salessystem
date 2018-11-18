@@ -118,7 +118,10 @@ function inicio() {
     // Cambiar la Cantidad
     $('.Cantidad').change(function (e) {
         e.preventDefault();
-        var Cantidad = $(this).val()
+        var Cantidad = $(this).val();
+        if (Cantidad == null) {
+            Cantidad = 0;
+        }
         var Id = $(this).attr('data-id');
         var Precio = $(this).attr('data-precio');
         $.ajax({
@@ -136,6 +139,24 @@ function inicio() {
     });
 
     // Fin
+
+    // function stock (){
+    //     $('.Cantidad').each(function(){
+    //         var Id = $(this).attr('data-id');
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "../../php/ventasweb/getStock.php",
+    //             data: {
+    //                 Id: Id
+    //             },
+    //             success: function (response) {
+    //                 alert(response);
+    //             }
+    //         });
+    //     });
+    // };
+
+    // setInterval(stock, 5000);
 
     //Evento al cambiar el tipo de usuario
 
@@ -229,6 +250,13 @@ function inicio() {
         });
     });
 
+    // Fin
+
+    // Validación solo números
+
+    $('.number').on('input', function () {
+        this.value = this.value.replace(/[^0-9]/g,'');
+    });
     // Fin
 }
 
