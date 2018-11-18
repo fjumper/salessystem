@@ -34,17 +34,18 @@
                     <a class="nav-link" href="carrito.php"><i class="fas fa-shopping-cart"></i> Carrito</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="compras.php"><i class="fas fa-clipboard-list"></i> Mis Compras</a>
+                    <a class="nav-link" href="catalogo.php"><i class="fas fa-tags"></i> Catálogo</a>
                 </li>
                 <?php 
                     if(isset($_SESSION['usuario'])) {?>
-                        <li class="nav-item dropdown ">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown"  aria-expanded="false"><i class="fas fa-user"></i><span> <?php echo $_SESSION['usuario'][0]['UserName']; ?></span></a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown"  aria-expanded="false"><i class="fas fa-user-circle"></i> <span> <?php echo $_SESSION['usuario'][0]['UserName']; ?></span></a>
                             <label class="d-none" id="usuario"><?php echo $_SESSION['usuario'][0]['Id']; ?></label>
-                            <div class="dropdown-menu" aria-labelledby="lbtnUsuario">
-                                <a class="dropdown-item" href="">Mi Perfil</a>
-                                <a class="dropdown-item" href="listaDeseos.php">Lista de deseos</a>
-                                <a class="dropdown-item" href="login.php" id="Cerrar">Cerrar Sesión</a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="lbtnUsuario">
+                                <a class="dropdown-item" href=""><i class="fas fa-user"></i> Mi Perfil</a>
+                                <a class="dropdown-item" href="deseos.php"><i class="far fa-star"></i> Lista de deseos</a>
+                                <a class="dropdown-item" href="compras.php"><i class="fas fa-clipboard-list"></i> Mis Compras</a>
+                                <a class="dropdown-item" href="login.php" id="Cerrar"><i class="fas fa-power-off"></i> Cerrar Sesión</a>
                             </div>
                         </li>
                    <?php } else { ?>

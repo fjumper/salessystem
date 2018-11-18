@@ -7,27 +7,36 @@
     if(isset($_SESSION['carrito'])) {
         if(isset($_POST['Id'])) {
             $arreglo = $_SESSION['carrito'];
+            $encontrado = false;
+            $numero = 0;
 
-            $resultn = $get->getProductosId($_POST['Id']);
-            while($row = $resultn->fetch_array()) {
-                $Producto = $row['Producto'];
-                $Imagen = $row['Imagen'];
-                $PrecioVenta = $row['PrecioVenta'];
-                $Peso = $row['Peso'] / 1000;
-                $Stock = $row['Cantidad'];
+            for ($i=0; $i < count($arreglo); $i++) { 
+                if ($arreglo[$i]['Id'] == $_POST['Id']) {
+                    $encontrado = true;
+                    $numero = $i;
+                }
             }
-            $resultn->free_result();
-            $datosNuevos = array(
-                'Id' => $_POST['Id'],
-                'Producto' => $Producto,
-                'Imagen' => $Imagen,
-                'PrecioVenta' => $PrecioVenta,
-                'Peso' => $Peso,
-                'Stock' => $Stock,
-                'Cantidad' => 1
-            );
-            array_push($arreglo, $datosNuevos);
-            $_SESSION['carrito'] = $arreglo;
+
+            if ($encontrado == false) {
+                $resultn = $get->getProductosId($_POST['Id']);
+                while($row = $resultn->fetch_array()) {
+                    $Producto = $row['Producto'];
+                    $Imagen = $row['Imagen'];
+                    $PrecioVenta = $row['PrecioVenta'];
+                    $Peso = $row['Peso'] / 1000;
+                }
+                $resultn->free_result();
+                $datosNuevos = array(
+                    'Id' => $_POST['Id'],
+                    'Producto' => $Producto,
+                    'Imagen' => $Imagen,
+                    'PrecioVenta' => $PrecioVenta,
+                    'Peso' => $Peso,
+                    'Cantidad' => 1
+                );
+                array_push($arreglo, $datosNuevos);
+                $_SESSION['carrito'] = $arreglo;
+            }
         }
     } else {
         if(isset($_POST['Id'])) {
@@ -38,7 +47,6 @@
                 $Imagen = $row['Imagen'];
                 $PrecioVenta = $row['PrecioVenta'];
                 $Peso = $row['Peso'] / 1000;
-                $Stock = $row['Cantidad'];
             }
             $result->free_result();        
             
@@ -48,7 +56,6 @@
                 'Imagen' => $Imagen,
                 'PrecioVenta' => $PrecioVenta,
                 'Peso' => $Peso,
-                'Stock' => $Stock,
                 'Cantidad' => 1
             );
             $_SESSION['carrito'] = $arreglo;
@@ -101,19 +108,7 @@
                                         <td><img src="<?php echo $datos[$i]['Imagen']; ?>" style="width: 3rem;"></td>
                                         <td><p><?php echo $datos[$i]['Producto']; ?></p></td>
                                         <td>
-                                            <select class="custom-select Cantidad" data-precio="<?php echo $datos[$i]['PrecioVenta']; ?>"
-                                            data-id="<?php echo $datos[$i]['Id']; ?>">
-                                            <?php
-                                            for($c = 1; $c <= $datos[$i]['Stock']; $c++) { ?>
-                                                <option value="<?php echo  $c; ?>" <?php 
-                                                
-                                                if($c == $datos[$i]['Cantidad']){
-                                                    echo ' selected="selected"';
-                                                }
-                                                
-                                                ?> ><?php echo $c; ?></option>
-                                            <?php } ?>
-                                            </select>
+                                            <input type="number" class="form-control col-md-6 m-auto Cantidad" data-precio="<?php echo $datos[$i]['PrecioVenta']; ?>" data-id="<?php echo $datos[$i]['Id']; ?>" value="<?php echo $datos[$i]['Cantidad']; ?>">
                                         </td>
                                         <td><p><?php echo 'S/. ' . number_format($datos[$i]['PrecioVenta'],2); ?></p></td>
                                         <td><p><?php echo $datos[$i]['Peso']. ' Kg'; ?></p> <i class="fas fa-exclamation-circle"></i></td>

@@ -1,4 +1,5 @@
 function inicio() {
+
     // Botón Agregar Carrito
 
     $('.btnAgregar').click(function () {
@@ -27,27 +28,67 @@ function inicio() {
     // Botón Favorito
 
     $('.btnFavorito').click(function () {
+        var IdUsuario = $('#usuario').text();
+        var IdProducto = $(this).siblings('.btnAgregar').attr('id');
+        if ($.isNumeric(IdUsuario)) {
+            if ($(this).children('i').hasClass('far fa-star')) {
+                $(this).children('i').removeClass('far fa-star');
+                $(this).children('i').addClass('fas fa-star');
 
-        if ($(this).children('i').hasClass('far fa-star')) {
-            $(this).children('i').removeClass('far fa-star');
-            $(this).children('i').addClass('fas fa-star');
+                $.ajax({
+                    type: "POST",
+                    url: "../../php/ventasweb/deseos/insDeseos.php",
+                    data: {
+                        IdUsuario: IdUsuario,
+                        IdProducto: IdProducto
+                    },
+                    success: function (response) {
+                        if (response == 1)
+                            alertify.success('Bien. Se agrego a productos deseados');
+                    }
+                });
+            } else {
+                $(this).children('i').removeClass('fas fa-star');
+                $(this).children('i').addClass('far fa-star');
 
-            $('.btnAgregar').each(function(){
-                var id = $(this).attr('id');
-                alert(id);
-            });
-            $.ajax({
-                type: "POST",
-                url: "../../php/ventasweb/listaDeseos.php",
-                data: {IdUsuario: $('#usuario').text(), IdProducto: $('.btnAgregar').attr('id')},
-                success: function (response) {
-                    alertify.success('Bien. Se agrego a productos deseados');
-                }
-            });
+                $.ajax({
+                    type: "POST",
+                    url: "../../php/ventasweb/deseos/eliDeseos.php",
+                    data: {
+                        IdUsuario: IdUsuario,
+                        IdProducto: IdProducto
+                    },
+                    success: function (response) {
+                        if (response == 1)
+                            alertify.warning('Bien. Se elimino de productos deseados');
+                    }
+                });
+            }
         } else {
-            $(this).children('i').removeClass('fas fa-star');
-            $(this).children('i').addClass('far fa-star');
+            alertify.error('Error. Debe iniciar sesión');
         }
+    });
+
+    // Fin
+
+    // Eliminar Favorito
+
+    $('.btnFavoritoEli').click(function () {
+        var IdUsuario = $('#usuario').text();
+        var IdProducto = $(this).siblings('.btnAgregar').attr('id');
+
+        $.ajax({
+            type: "POST",
+            url: "../../php/ventasweb/deseos/eliDeseos.php",
+            data: {
+                IdUsuario: IdUsuario,
+                IdProducto: IdProducto
+            },
+            success: function (response) {
+                if (response == 1)
+                    location.reload();
+            }
+        });
     });
 
     // Fin
@@ -67,9 +108,7 @@ function inicio() {
                 Id: Id
             },
             success: function (response) {
-                if (response == '0') {
-                    location.href = "carrito.php";
-                }
+                location.reload();
             }
         });
     });
@@ -123,15 +162,17 @@ function inicio() {
     //Fin
 
     // ----------- Ubigeo --------
-    $('#Departamento').change(function (e) { 
+    $('#Departamento').change(function (e) {
         e.preventDefault();
         IdDepartamento = $(this).val();
         $('#Distrito').find('option').remove().end().append('<option value="0">Seleccione</option>');
         $('#Departamento').each(function () {
-            $.post("../../php/ventasweb/getProvincias.php", {IdDepartamento: IdDepartamento},
+            $.post("../../php/ventasweb/getProvincias.php", {
+                    IdDepartamento: IdDepartamento
+                },
                 function (data) {
                     $('#Provincia').html(data);
-                });  
+                });
         });
     });
 
@@ -151,14 +192,17 @@ function inicio() {
 
     // Iniciar Sesión
 
-    $('#Login').click(function (e) { 
+    $('#Login').click(function (e) {
         e.preventDefault();
         $.ajax({
             type: "POST",
             url: "../../php/ventasweb/login.php",
-            data: {UserName: $('#UserName').val(), UserPass: $('#UserPass').val()},
+            data: {
+                UserName: $('#UserName').val(),
+                UserPass: $('#UserPass').val()
+            },
             success: function (response) {
-                if(response == 0) {
+                if (response == 0) {
                     alertify.error('Error Datos Incorrectos');
                 } else {
                     location.href = 'index.php';
@@ -171,12 +215,14 @@ function inicio() {
 
     // Cerrar Sesión
 
-    $('#Cerrar').click(function (e) { 
+    $('#Cerrar').click(function (e) {
         e.preventDefault();
         $.ajax({
             type: "POST",
             url: "../../php/ventasweb/CerrarSesion.php",
-            data: {Session: 'Session'},
+            data: {
+                Session: 'Session'
+            },
             success: function (response) {
                 location.href = 'index.php';
             }

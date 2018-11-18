@@ -42,6 +42,16 @@
             return $datos;
         }
 
+        function getListarDeseosCliente($Usuario){
+            $con = new Connection();
+            $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
+            $datos = $cmd->query("CALL spListarDeseosCliente('$Usuario')");
+            $cmd->close();
+            return $datos;
+        }
+
         function getEstadosCivil(){
             $con = new Connection();
             $cmd = $con->getConnection();
