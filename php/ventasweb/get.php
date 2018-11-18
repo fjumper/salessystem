@@ -15,6 +15,8 @@
         function getDepartamentos(){
             $con = new Connection();
             $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
             $datos = $cmd->query("CALL spListarDepartamentos()");
             $cmd->close();
             return $datos;
@@ -36,6 +38,16 @@
             $cmd->query("SET NAMES UTF8");
             $cmd->query("SET CHARACTER SET utf8");
             $datos= $cmd->query("CALL spListarDistritos('$IdProvincia')");
+            $cmd->close();
+            return $datos;
+        }
+
+        function getEstadosCivil(){
+            $con = new Connection();
+            $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
+            $datos= $cmd->query("CALL spListarEstadosCivil()");
             $cmd->close();
             return $datos;
         }

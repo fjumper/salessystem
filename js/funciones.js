@@ -36,17 +36,14 @@ function inicio() {
                 var id = $(this).attr('id');
                 alert(id);
             });
-
-            
-
-            // $.ajax({
-            //     type: "POST",
-            //     url: "php/listaDeseos.php",
-            //     data: {IdUsuario: $('#usuario').text(), IdProducto: $('.btnAgregar').attr('id')},
-            //     success: function (response) {
-                    
-            //     }
-            // });
+            $.ajax({
+                type: "POST",
+                url: "../../php/ventasweb/listaDeseos.php",
+                data: {IdUsuario: $('#usuario').text(), IdProducto: $('.btnAgregar').attr('id')},
+                success: function (response) {
+                    alertify.success('Bien. Se agrego a productos deseados');
+                }
+            });
         } else {
             $(this).children('i').removeClass('fas fa-star');
             $(this).children('i').addClass('far fa-star');
@@ -131,7 +128,7 @@ function inicio() {
         IdDepartamento = $(this).val();
         $('#Distrito').find('option').remove().end().append('<option value="0">Seleccione</option>');
         $('#Departamento').each(function () {
-            $.post("php/getProvincias.php", {IdDepartamento: IdDepartamento},
+            $.post("../../php/ventasweb/getProvincias.php", {IdDepartamento: IdDepartamento},
                 function (data) {
                     $('#Provincia').html(data);
                 });  
@@ -142,7 +139,7 @@ function inicio() {
         e.preventDefault();
         $("#Provincia").each(function () {
             IdProvincia = $(this).val();
-            $.post("php/getDistritos.php", {
+            $.post("../../php/ventasweb/getDistritos.php", {
                 IdProvincia: IdProvincia
             }, function (data) {
                 $("#Distrito").html(data);
