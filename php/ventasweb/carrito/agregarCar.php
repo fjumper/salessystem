@@ -41,9 +41,7 @@
                 array_push($arreglo, $datosNuevos);
                 $_SESSION['carrito'] = $arreglo;
             }
-        
-    } else {
-    
+        } else {
 
             $result = $get->getSP("spListarProductoId('$Id')");
             while($row = $result->fetch_array()) {

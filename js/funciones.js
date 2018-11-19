@@ -16,6 +16,7 @@ function inicio() {
                 },
                 success: function (response) {
                     alertify.success('Bien. Se agrego al carrito');
+                    setTimeout(location.reload.bind(location), 4000);
                 }
             });
 

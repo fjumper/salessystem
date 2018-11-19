@@ -31,7 +31,14 @@
                     <a class="nav-link" href="index.php"><i class="fas fa-home"></i> Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="carrito.php"><i class="fas fa-shopping-cart"></i> Carrito</a>
+                    <a class="nav-link" href="carrito.php"><i class="fas fa-shopping-cart"></i> Carrito <span id="CantProd" class="badge badge-light">
+                        <?php
+                            if(isset($_SESSION['carrito'])) {
+                                $arreglo = $_SESSION['carrito'];
+                                echo count($arreglo);
+                            } else echo 0;
+                        ?></span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="catalogo.php"><i class="fas fa-tags"></i> Catálogo</a>
