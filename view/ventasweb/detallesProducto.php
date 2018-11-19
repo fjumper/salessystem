@@ -2,10 +2,10 @@
 
     require '../../php/ventasweb/get.php';
 
-    $Id = $_GET['id'];
+    $IdProducto = $_GET['id'];
     
     $get = new get();
-    $result = $get->getProductosId($Id);
+    $result = $get->getSP("spListarProductoId('$IdProducto')");
 
 ?>
 

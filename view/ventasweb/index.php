@@ -9,8 +9,8 @@
 
     require '../../php/ventasweb/get.php';
 	$get = new get();
-	$resultV = $get->getProductosCatalogo();
-    $resultT = $get->getProductosCatalogo();
+	$resultV = $get->getSP("spListarProdCatalogo()");
+    $resultT = $get->getSP("spListarProdCatalogo()");
 ?>
 
 <!DOCTYPE html>

@@ -5,7 +5,7 @@
     $IdDepartamento = $_POST['IdDepartamento'];
 
     $get = new get();
-    $resultP = $get->getProvincias($IdDepartamento);
+    $resultP = $get->getSP("spListarProvincias('$IdDepartamento')");
 
     $html= "<option value='0'>Seleccione</option>";
 	

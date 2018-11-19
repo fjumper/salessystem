@@ -10,7 +10,7 @@
     require '../../php/ventasweb/get.php';
 	$get = new get();
     
-    $resultC = $get->getListarCategoria();
+    $resultC = $get->getSP("spListarCategoria()"); 
 
     if(isset($_POST['Categoria']) && isset($_POST['SubCategoria']) && isset($_POST['pMin']) && isset($_POST['pMax'])){
         $Categoria = $_POST['Categoria'];
@@ -18,20 +18,22 @@
         $pMin = $_POST['pMin'];
         $pMax = $_POST['pMax'];
         if ($Categoria != 0 && $SubCategoria != 0 && $pMin != null && $pMax != null) {
-            $resultPC = $get->getProductosCatSubCatMinMax($Categoria, $SubCategoria, $pMin, $pMax);
+            $resultPC = $get->getSP("spListarProductoCatSubCatMinMax('$Categoria', '$SubCategoria', '$pMin', '$pMax')");
         } elseif ($Categoria > 0 && $SubCategoria > 0) {
-            $resultPC = $get->getProductosCatSubCat($Categoria, $SubCategoria);
+            $resultPC = $get->getSP("spListarProductoCatSubCat('$Categoria', '$SubCategoria')");
         }elseif($Categoria != 0) {
-            $resultPC = $get->getProductosCategoria($Categoria);
+            $resultPC = $get->getSP("spListarProductoCategoria('$Categoria')");
         }else {
-            $resultPC = $get->getProductosCatalogo();
+            $resultPC = $get->getSP("spListarProdCatalogo()");
         }
     } elseif(isset($_GET['Cat'])) {
-        $resultPC = $get->getProductosCategoria($_GET['Cat']);
+        $Cat = $_GET['Cat'];
+        $resultPC = $get->getSP("spListarProductoCategoria('$Cat')");
     } elseif(isset($_POST['Producto'])) {
-        $resultPC = $get->getProductosNombre($_POST['Producto']);
+        $Producto = $_POST['Producto'];
+        $resultPC = $get->getSP("spListarProductoNombre('$Producto')");
     } else {
-        $resultPC = $get->getProductosCatalogo();
+        $resultPC = $get->getSP("spListarProdCatalogo()");
     }
 ?>
 
@@ -107,14 +109,14 @@
                                 } else {
                                     $Cat = $_GET['Cat'];
                                 }
-                                $resultCId = $get->getCategoriaId($Cat);
+                                $resultCId = $get->getSP("spCategoriaId('$Cat')");
                                 while ($rowCId = $resultCId->fetch_assoc()) {
                                     echo $rowCId['Categoria'];
                                 }
                             ?></li>
                             <?php if (isset($_POST['SubCategoria'])) { ?>
                                 <li class="breadcrumb-item"><?php
-                                    $resultSCId = $get->getSubCategoriaId($_POST['Categoria'], $_POST['SubCategoria']);
+                                    $resultSCId = $get->getSP("spSubCategoriaId('$Categoria', '$SubCategoria')");
                                     while ($rowSCId = $resultSCId->fetch_assoc()) {
                                         echo $rowSCId['SubCategoria'];
                                     }

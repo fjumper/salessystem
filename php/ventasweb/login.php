@@ -7,7 +7,7 @@
     $UserPass = $_POST['UserPass'];
 
     $get = new get();
-    $result = $get->getLogin($UserName, $UserPass);
+    $result = $get->getSP("spLogin('$UserName', '$UserPass')");
 
     while ($row = $result->fetch_assoc()){
         $IdUsuario = $row['IdUsuario'];

@@ -5,7 +5,7 @@
     $IdCategoria = $_POST['IdCategoria'];
 
     $get = new get();
-    $resultP = $get->getListarSubCategoria($IdCategoria);
+    $resultP = $get->getSP("spListarSubcategorias('$IdCategoria')");
 
     $html= "<option value='0'>Seleccione</option>";
 	

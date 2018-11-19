@@ -8,8 +8,9 @@
     }
 
     require '../../php/ventasweb/get.php';
-	$get = new get();
-	$result = $get->getListarDeseosCliente($_SESSION['usuario'][0]['Id']);
+    $get = new get();
+    $IdUsuario = $_SESSION['usuario'][0]['Id'];
+	$result = $get->getSP("spListarDeseosCliente('$IdUsuario')");
 ?>
 
 <!DOCTYPE html>

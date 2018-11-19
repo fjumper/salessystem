@@ -9,9 +9,9 @@
     }
     require '../../php/ventasweb/get.php';
     $get = new get();
-    $resultD = $get->getDepartamentos();
-    $resultG = $get->getGeneros();
-    $resultEC = $get->getEstadosCivil();
+    $resultD = $get->getSP("spListarDepartamentos()");
+    $resultG = $get->getSP("spListarGeneros()");
+    $resultEC = $get->getSP("spListarEstadosCivil()");
 
 ?>
 <!DOCTYPE html>

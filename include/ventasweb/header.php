@@ -1,4 +1,4 @@
-<?php $resultCT = $get->getListarCategoria(); ?>
+<?php $resultCT = $get->getSP("spListarCategoria()"); ?>
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark info-color-dark"> <!-- bg-dark -->

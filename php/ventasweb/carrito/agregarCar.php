@@ -3,22 +3,24 @@
     session_start();
 
     require '../../php/ventasweb/get.php';
+
     $get = new get();
-    if(isset($_SESSION['carrito'])) {
-        if(isset($_POST['Id'])) {
+    if(isset($_POST['Id'])) {
+        $Id = $_POST['Id'];
+        if(isset($_SESSION['carrito'])) {
             $arreglo = $_SESSION['carrito'];
             $encontrado = false;
             $numero = 0;
 
             for ($i=0; $i < count($arreglo); $i++) { 
-                if ($arreglo[$i]['Id'] == $_POST['Id']) {
+                if ($arreglo[$i]['Id'] == $Id) {
                     $encontrado = true;
                     $numero = $i;
                 }
             }
 
             if ($encontrado == false) {
-                $resultn = $get->getProductosId($_POST['Id']);
+                $resultn = $get->getSP("spListarProductoId('$Id')");
                 while($row = $resultn->fetch_array()) {
                     $Producto = $row['Producto'];
                     $Imagen = $row['Imagen'];
@@ -28,7 +30,7 @@
                 }
                 $resultn->free_result();
                 $datosNuevos = array(
-                    'Id' => $_POST['Id'],
+                    'Id' => $Id,
                     'Producto' => $Producto,
                     'Imagen' => $Imagen,
                     'PrecioVenta' => $PrecioVenta,
@@ -39,11 +41,11 @@
                 array_push($arreglo, $datosNuevos);
                 $_SESSION['carrito'] = $arreglo;
             }
-        }
+        
     } else {
-        if(isset($_POST['Id'])) {
+    
 
-            $result = $get->getProductosId($_POST['Id']);
+            $result = $get->getSP("spListarProductoId('$Id')");
             while($row = $result->fetch_array()) {
                 $Producto = $row['Producto'];
                 $Imagen = $row['Imagen'];
@@ -54,7 +56,7 @@
             $result->free_result();        
             
             $arreglo[] = array(
-                'Id' => $_POST['Id'],
+                'Id' => $Id,
                 'Producto' => $Producto,
                 'Imagen' => $Imagen,
                 'PrecioVenta' => $PrecioVenta,
