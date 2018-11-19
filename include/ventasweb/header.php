@@ -9,20 +9,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div role="separator" class="dropdown-divider mr-auto"></div>
-            <form class="form-inline ml-auto mr-auto">
+            <form name="ProdNom" action="catalogo.php" method="POST" class="form-inline ml-auto mr-auto">
                 <div class="input-group mb-0">
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-light dropdown-toggle" type="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Categorias</button>
                         <div class="dropdown-menu">
                             <?php while ($rowCT = $resultCT->fetch_assoc()) { ?>
-                                <a class="dropdown-item" href="catalogo.php?id=<?php echo $rowCT['IdCategoria']; ?>"><?php echo $rowCT['Categoria']; ?></a>
+                                <a class="dropdown-item" href="catalogo.php?Cat=<?php echo $rowCT['IdCategoria']; ?>"><?php echo $rowCT['Categoria']; ?></a>
                             <?php } $resultCT->free_result(); ?>
                         </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="Hola! qué buscas?">
+                    <input type="text" name="Producto" class="form-control" autocomplete="off" placeholder="Hola! qué buscas?">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-light" type="button" id="button-addon2"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-outline-light" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>

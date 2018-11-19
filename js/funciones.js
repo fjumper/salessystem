@@ -258,6 +258,22 @@ function inicio() {
         this.value = this.value.replace(/[^0-9]/g,'');
     });
     // Fin
+
+    // Rellenar SubCategoria
+    $('#Categoria').change(function (e) { 
+        e.preventDefault();
+        IdCategoria = $(this).val();
+        $('#SubCategoria').find('option').remove().end().append('<option value="0">Seleccione</option>');
+        $('#Categoria').each(function () {
+            $.post("../../php/ventasweb/getSubCategoria.php", {
+                IdCategoria: IdCategoria
+            },
+            function (data) {
+                $('#SubCategoria').html(data);
+            });
+        });
+    });
+    // Fin
 }
 
 $(function () {

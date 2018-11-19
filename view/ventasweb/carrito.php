@@ -81,7 +81,7 @@
                 <div class="card-footer text-muted">
                     <div class="text-right">
                         <p>SUBTOTAL (<b><?php echo $item; ?></b> ITEMS): <b id="SubTotal"><?php echo 'S/. '.number_format($Subtotal,2); ?></b></p>
-                        <a href="index.php" class="btn btn-info"><i class="fas fa-tags"></i> VER CATÁLOGO</a>
+                        <a href="catalogo.php" class="btn btn-info"><i class="fas fa-tags"></i> VER CATÁLOGO</a>
                         <a href="pago.php" class="btn btn-primary" id="Pagar"><i class="fas fa-money-bill-alt"></i> PROCEDER A
                             PAGAR</a>
                     </div>

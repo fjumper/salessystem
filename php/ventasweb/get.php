@@ -92,12 +92,82 @@
             return $datos;
         }
 
+        function getListarSubCategoria($IdCategoria){
+            $con = new Connection();
+            $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
+            $datos = $cmd->query("CALL spListarSubcategorias('$IdCategoria')");
+            $cmd->close();
+            return $datos;
+        }
+
         function getProductosId($Id){
             $con = new Connection();
             $cmd = $con->getConnection();
             $cmd->query("SET NAMES UTF8");
             $cmd->query("SET CHARACTER SET utf8");
             $datos = $cmd->query("CALL spListarProductoId('$Id')");
+            $cmd->close();
+            return $datos;
+        }
+
+        function getProductosCategoria($IdCategoria){
+            $con = new Connection();
+            $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
+            $datos = $cmd->query("CALL spListarProductoCategoria('$IdCategoria')");
+            $cmd->close();
+            return $datos;
+        }
+
+        function getCategoriaId($IdCategoria){
+            $con = new Connection();
+            $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
+            $datos = $cmd->query("CALL spCategoriaId('$IdCategoria')");
+            $cmd->close();
+            return $datos;
+        }
+
+        function getSubCategoriaId($IdCategoria, $IdSubCategoria){
+            $con = new Connection();
+            $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
+            $datos = $cmd->query("CALL spSubCategoriaId('$IdCategoria', '$IdSubCategoria')");
+            $cmd->close();
+            return $datos;
+        }
+        
+        function getProductosCatSubCat($IdCategoria, $IdSubCategoria){
+            $con = new Connection();
+            $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
+            $datos = $cmd->query("CALL spListarProductoCatSubCat('$IdCategoria', '$IdSubCategoria')");
+            $cmd->close();
+            return $datos;
+        }
+
+        function getProductosCatSubCatMinMax($IdCategoria, $IdSubCategoria, $pMin, $pMax){
+            $con = new Connection();
+            $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
+            $datos = $cmd->query("CALL spListarProductoCatSubCatMinMax('$IdCategoria', '$IdSubCategoria', '$pMin', '$pMax')");
+            $cmd->close();
+            return $datos;
+        }
+
+        function getProductosNombre($Nombre){
+            $con = new Connection();
+            $cmd = $con->getConnection();
+            $cmd->query("SET NAMES UTF8");
+            $cmd->query("SET CHARACTER SET utf8");
+            $datos = $cmd->query("CALL spListarProductoNombre('$Nombre')");
             $cmd->close();
             return $datos;
         }
