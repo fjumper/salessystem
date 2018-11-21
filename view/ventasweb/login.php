@@ -39,16 +39,10 @@
             <div class="form-group mt-2">
                 <a href="#">He olvidado mi contraseña</a>
             </div>
-            <div class="text-center">
-                <button id="Login" class="btn btn-outline-success mt-2 col-lg-11">Iniciar Sesión</button>
-            </div>
-            <div class="d-flex flex-wrap justify-content-around">
-                <a href="#" class="btn btn-danger mt-2 col-lg-5" Font-Size="10pt"><i class="fab fa-google-plus-g"></i> Accede con Google</a>
-                <a href="#" class="btn btn-primary mt-2 col-lg-5" Font-Size="10pt"><i class="fab fa-facebook-f"></i> Accede con Facebook</a>
-            </div>
-            <p class="text-center mt-2">ó</p>
-            <div class="d-flex flex-wrap justify-content-around">
-                <a href="registrarUsuario.php" class="btn btn-outline-primary mt-2 col-lg-11" Font-Size="10pt">Registrarse</a>
+            <div class="form-group form-row">
+                <button id="Login" class="btn btn-outline-success mt-2 col-md-5">Iniciar Sesión</button>
+                <p class="col-md-2"></p>
+                <a href="registrarUsuario.php" class="btn btn-outline-primary mt-2 col-md-5" Font-Size="10pt">Registrarse</a>
             </div>
         </div>
     </section>

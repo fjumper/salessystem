@@ -12,7 +12,7 @@
 
         <?php require '../../include/ventasweb/header.php'; ?>
         <section class="container">
-            <div class="card text-center">
+            <div class="card text-center mt-5">
                 <div class="card-header text-uppercase">
                     <i class="fas fa-shopping-cart"></i> Carrito de Compras
                 </div>
@@ -58,7 +58,7 @@
                                         $datos[$i]['Cantidad'] = 0;
                                     }
                                     $Subtotal = $Subtotal + $datos[$i]['Cantidad']* $datos[$i]['PrecioVenta'];
-                                    $Peso = $Peso + $datos[$i]['Peso'];
+                                    $Peso = $Peso + $datos[$i]['Peso'] * $datos[$i]['Cantidad'];
                             } ?>
                                 </tbody>
                             <?php

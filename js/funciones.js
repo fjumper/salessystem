@@ -16,7 +16,7 @@ function inicio() {
                 },
                 success: function (response) {
                     alertify.success('Bien. Se agrego al carrito');
-                    setTimeout(location.reload.bind(location), 4000);
+                    setTimeout(location.reload.bind(location), 3000);
                 }
             });
 
@@ -141,24 +141,6 @@ function inicio() {
 
     // Fin
 
-    // function stock (){
-    //     $('.Cantidad').each(function(){
-    //         var Id = $(this).attr('data-id');
-    //         $.ajax({
-    //             type: "POST",
-    //             url: "../../php/ventasweb/getStock.php",
-    //             data: {
-    //                 Id: Id
-    //             },
-    //             success: function (response) {
-    //                 alert(response);
-    //             }
-    //         });
-    //     });
-    // };
-
-    // setInterval(stock, 5000);
-
     //Evento al cambiar el tipo de usuario
 
     TipoUsuario();
@@ -275,6 +257,63 @@ function inicio() {
         });
     });
     // Fin
+
+    // Botones de Tarjeta
+    var botones = $(".Tarjeta");
+    botones.click(function() {
+        botones.removeClass('active');
+        $(this).addClass('active');
+        var id = $(this).attr('id');
+        if (id == "Visa" || id == "MasteCard") {
+            $('#NumTarjeta').attr({
+                "max" : 9999999999999999,
+                "min" : 1000000000000000,
+                "title" : "Ingrese 16 dígitos"
+            });
+            $('#CVC').attr({
+                "max" : 999,
+                "min" : 100,
+                "title" : "Ingrese 3 dígitos"
+            });
+        } else {
+            $('#NumTarjeta').attr({
+                "max" : 999999999999999,
+                "min" : 100000000000000,
+                "title" : "Ingrese 15 dígitos"
+            });
+            $('#CVC').attr({
+                "max" : 9999,
+                "min" : 1000,
+                "title" : "Ingrese 4 dígitos"
+            });
+        }
+    });
+    // Fin
+
+    $('#cTienda').click(function (e) { 
+        e.preventDefault();
+        $('#Delivery').addClass('d-none');
+        $('#Tienda').removeClass('d-none');
+    });
+
+    $('#cDelivery').click(function (e) { 
+        e.preventDefault();
+        $('#Tienda').addClass('d-none');
+        $('#Delivery').removeClass('d-none');
+    });
+
+    $('#GuardarCambios').click(function (e) { 
+        e.preventDefault();
+        var sDireccion = $('#Direccion').val();
+        var sDepartamento = $('select[name="Departamento"] option:selected').text();
+        var sProvincia = $('select[name="Provincia"] option:selected').text();
+        var sDistrito = $('select[name="Distrito"] option:selected').text();
+
+        $('#lblDireccion').html(sDireccion);
+        $('#lblDistrito').html(sDistrito);
+        $('#lblProvincia').html(sProvincia);
+        $('#lblDepartamento').html(sDepartamento);
+    });
 }
 
 $(function () {
