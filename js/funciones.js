@@ -16,7 +16,7 @@ function inicio() {
                 },
                 success: function (response) {
                     alertify.success('Bien. Se agrego al carrito');
-                    setTimeout(location.reload.bind(location), 3000);
+                    // setTimeout(location.reload.bind(location), 3000);
                 }
             });
 
@@ -38,7 +38,7 @@ function inicio() {
 
                 $.ajax({
                     type: "POST",
-                    url: "../../php/ventasweb/deseos/insDeseos.php",
+                    url: "../php/deseos/insDeseos.php",
                     data: {
                         IdUsuario: IdUsuario,
                         IdProducto: IdProducto
@@ -54,7 +54,7 @@ function inicio() {
 
                 $.ajax({
                     type: "POST",
-                    url: "../../php/ventasweb/deseos/eliDeseos.php",
+                    url: "../php/deseos/eliDeseos.php",
                     data: {
                         IdUsuario: IdUsuario,
                         IdProducto: IdProducto
@@ -80,7 +80,7 @@ function inicio() {
 
         $.ajax({
             type: "POST",
-            url: "../../php/ventasweb/deseos/eliDeseos.php",
+            url: "../php/deseos/eliDeseos.php",
             data: {
                 IdUsuario: IdUsuario,
                 IdProducto: IdProducto
@@ -98,19 +98,26 @@ function inicio() {
     $('.eliminar').click(function (e) {
         e.preventDefault();
         var Id = $(this).attr('data-id');
-        $(this).closest('tr').remove();
-        $('#SubTotal').text($('tr').length - 1);
-        alertify.success('Producto eliminado del carrito ');
+        var tr = $(this).closest('tr');
+        
+        alertify.confirm("¿Esta seguro de eliminar el producto del carrito?",
+        function(){
+            tr.remove();
+            $('#SubTotal').text($('tr').length - 1);
 
-        $.ajax({
-            type: "POST",
-            url: "../../php/ventasweb/carrito/eliminarProdCar.php",
-            data: {
-                Id: Id
-            },
-            success: function (response) {
-                location.reload();
-            }
+            $.ajax({
+                type: "POST",
+                url: "../php/carrito/eliminarProdCar.php",
+                data: {
+                    Id: Id
+                },
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        },
+        function(){
+            alertify.error('Cancelado');
         });
     });
 
@@ -127,7 +134,7 @@ function inicio() {
         var Precio = $(this).attr('data-precio');
         $.ajax({
             type: "POST",
-            url: "../../php/ventasweb/carrito/modificarDatCar.php",
+            url: "../php/carrito/modificarDatCar.php",
             data: {
                 Id: Id,
                 Cantidad: Cantidad,
@@ -171,7 +178,7 @@ function inicio() {
         IdDepartamento = $(this).val();
         $('#Distrito').find('option').remove().end().append('<option value="0">Seleccione</option>');
         $('#Departamento').each(function () {
-            $.post("../../php/ventasweb/getProvincias.php", {
+            $.post("../php/getProvincias.php", {
                     IdDepartamento: IdDepartamento
                 },
                 function (data) {
@@ -184,7 +191,7 @@ function inicio() {
         e.preventDefault();
         $("#Provincia").each(function () {
             IdProvincia = $(this).val();
-            $.post("../../php/ventasweb/getDistritos.php", {
+            $.post("../php/getDistritos.php", {
                 IdProvincia: IdProvincia
             }, function (data) {
                 $("#Distrito").html(data);
@@ -200,7 +207,7 @@ function inicio() {
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: "../../php/ventasweb/login.php",
+            url: "../php/login.php",
             data: {
                 UserName: $('#UserName').val(),
                 UserPass: $('#UserPass').val()
@@ -223,7 +230,7 @@ function inicio() {
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: "../../php/ventasweb/CerrarSesion.php",
+            url: "../php/CerrarSesion.php",
             data: {
                 Session: 'Session'
             },
@@ -248,7 +255,7 @@ function inicio() {
         IdCategoria = $(this).val();
         $('#SubCategoria').find('option').remove().end().append('<option value="0">Seleccione</option>');
         $('#Categoria').each(function () {
-            $.post("../../php/ventasweb/getSubCategoria.php", {
+            $.post("../php/getSubCategoria.php", {
                 IdCategoria: IdCategoria
             },
             function (data) {
@@ -275,6 +282,11 @@ function inicio() {
                 "min" : 100,
                 "title" : "Ingrese 3 dígitos"
             });
+            if (id == "Visa")
+                $('#MarcaTarjeta').text("1");
+            else
+                $('#MarcaTarjeta').text("2");
+
         } else {
             $('#NumTarjeta').attr({
                 "max" : 999999999999999,
@@ -286,6 +298,7 @@ function inicio() {
                 "min" : 1000,
                 "title" : "Ingrese 4 dígitos"
             });
+            $('#MarcaTarjeta').text("3");
         }
     });
     // Fin
@@ -313,6 +326,41 @@ function inicio() {
         $('#lblDistrito').html(sDistrito);
         $('#lblProvincia').html(sProvincia);
         $('#lblDepartamento').html(sDepartamento);
+    });
+
+    $('#PagarCompra').click(function (e) { 
+        e.preventDefault();
+        if ($('#Tienda').hasClass('d-none')) {
+            var TipoEntrega = 2;
+        } else{
+            var TipoEntrega = 1;
+        }
+        $.ajax({
+            type: "POST",
+            url: "../php/insVenta.php",
+            data: {
+                IdCliente: $('#IdCliente').text(),
+                NumTarjeta: $('#NumTarjeta').val(),
+                MarcaTarjeta: $('#MarcaTarjeta').text(),
+                MM: $('#MM').val(),
+                AA: $('#AA').val(),
+                CVC: $('#CVC').val(),
+                TipoEntrega: TipoEntrega,
+                Direccion: $('#lblDireccion').text(),
+                Distrito: $('#lblDistrito').text(),
+                Provincia: $('#lblProvincia').text(),
+                Departamento: $('#lblDepartamento').text()
+            },
+            success: function (response) {
+                if (response == 1) {
+                    location.href="recibo.php";
+                } else if (response == 0){
+                    alertify.alert("No se registro la venta");
+                } else {
+                    alertify.alert("No se agregaron productos al carrito");
+                }
+            }
+        });
     });
 }
 
